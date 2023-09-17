@@ -20,7 +20,7 @@
 void fileToVector(ifstream &fileToRead, vector<GradEmploymentData> &vectorToWrite){
     string holder;
 
-    char delim;
+    char delim=',';
 
     getline(fileToRead, holder); // grab the column names and put the in the holder, we dont care about them
     while(fileToRead.peek()!=EOF){ // loop until the end of the file
@@ -48,7 +48,9 @@ void fileToVector(ifstream &fileToRead, vector<GradEmploymentData> &vectorToWrit
         fileToRead >> sectionData.educationDoctorate >> delim;
         fileToRead >> sectionData.educationMasters; 
 
-        vectorToWrite.push_back(sectionData); // push the object to the end of the vector... each iteration, the respective object is pushed to its own index
+        if(sectionData.educationMajor!=""){ // need to include this because for some reason the last line was getting included again with an empty major string
+            vectorToWrite.push_back(sectionData); // push the object to the end of the vector... each iteration, the respective object is pushed to its own index
+        }
     }
 }
 
@@ -85,8 +87,235 @@ void getSelection(){
         if(selection>0 && selection<13){ // input must be between 1-12
             cout << "Your input is out of bounds (1-12). Please input a correct selection." << endl << endl;
         }
-    } while(selection>0 && selection<13);
+    } while(selection<1 && selection>12);
+
 
     // write code to call the sort / manip function based on input number
+    // if selection is 12, exit
+
+
 }
 
+void highMean(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].meanSalary > vectorToRead[i].meanSalary){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major                    Mean Salary" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<10; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << "$" << setw(11) << fixed << setprecision(2) << vectorToRead[i].meanSalary << endl;
+    }
+}
+
+void lowMean(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].meanSalary < vectorToRead[i].meanSalary){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major                    Mean Salary" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<10; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << "$" << setw(11) << fixed << setprecision(2) << vectorToRead[i].meanSalary << endl;
+    }
+}
+
+void highMedian(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].medianSalary > vectorToRead[i].medianSalary){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major                  Meadian Salary" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<10; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << "$" << setw(11) << fixed << setprecision(2) << vectorToRead[i].medianSalary << endl;
+    }
+}
+
+void lowMedian(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].medianSalary < vectorToRead[i].medianSalary){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major                  Meadian Salary" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<10; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << "$" << setw(11) << fixed << setprecision(2) << vectorToRead[i].medianSalary << endl;
+    }
+}
+
+void highAsians(vector<GradEmploymentData> vectorToRead){ // top 5 majors w highest asians  
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsAsian > vectorToRead[i].demographicsAsian){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major              Demographic Asians" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsAsian << endl;
+    }
+}
+
+void lowAsians(vector<GradEmploymentData> vectorToRead){ // top 5 majors w highest asians  
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsAsian < vectorToRead[i].demographicsAsian){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major              Demographic Asians" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsAsian << endl;
+    }
+}
+
+void highMinorities(vector<GradEmploymentData> vectorToRead){ // top5 majors w highest minorities
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsMinority > vectorToRead[i].demographicsMinority){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major          Demographic Minorities" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsMinority << endl;
+    }
+}
+
+void lowMinorities(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsMinority < vectorToRead[i].demographicsMinority){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major          Demographic Minorities" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsMinority << endl;
+    }
+}
+
+void highestTotal(vector<GradEmploymentData> vectorToRead){ // top 5 majors w/ most total amount of people
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsTotal > vectorToRead[i].demographicsTotal){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major               Demographic Total" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsTotal << endl;
+    }
+}
+
+void lowestTotal(vector<GradEmploymentData> vectorToRead){
+    GradEmploymentData holder;
+    bool switched = true;
+    while(switched==true){
+        switched = false;
+        for(int i=0; i<vectorToRead.size()-1; i++){
+            if(vectorToRead[i+1].demographicsTotal < vectorToRead[i].demographicsTotal){
+                holder = vectorToRead[i];
+                vectorToRead[i] = vectorToRead[i+1];
+                vectorToRead[i+1] = holder;
+                switched = true;
+            }
+        }
+    }
+
+    cout << "Education Major               Demographic Total" << endl;
+    cout << "------------------------------------------------" << endl;
+    for(int i=0; i<5; i++){
+        cout << setw(35) << left << vectorToRead[i].educationMajor << right << setw(11) << fixed << setprecision(2) << vectorToRead[i].demographicsTotal << endl;
+    }
+}
+
+void majorSpecific(vector<GradEmploymentData> vectorToRead){
+    
+}

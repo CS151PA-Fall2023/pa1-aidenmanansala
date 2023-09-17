@@ -39,16 +39,16 @@ void fileToVector(ifstream &fileToRead, vector<GradEmploymentData> &vectorToWrit
 void showPrompt();
 void dataServer(int selection);
 void getSelection();
-void highMean(vector<GradEmploymentData> &vectorToRead);
-void lowMean(vector<GradEmploymentData> &vectorToRead);
-void highMedian(vector<GradEmploymentData> &vectorToRead);
-void lowMedian(vector<GradEmploymentData> &vectorToRead);
-void higAsians(vector<GradEmploymentData> &vectorToRead); // top 5 majors w highest asians
-void lowAsians(vector<GradEmploymentData> &vectorToRead);
-void highMinorities(vector<GradEmploymentData> &vectorToRead); // top5 majors w highest minorities
-void lowMinorities(vector<GradEmploymentData> &vectorToRead);
-void highestTotal(vector<GradEmploymentData> &vectorToRead); // top 5 majors w/ most total amount of peopel
-void lowestTotal(vector<GradEmploymentData> &vectorToRead);
-void majorSpecific(vector<GradEmploymentData> &vectorToRead);     
+void highMean(vector<GradEmploymentData> vectorToRead);
+void lowMean(vector<GradEmploymentData> vectorToRead);
+void highMedian(vector<GradEmploymentData> vectorToRead);
+void lowMedian(vector<GradEmploymentData> vectorToRead);
+void highAsians(vector<GradEmploymentData> vectorToRead); // top 5 majors w highest asians
+void lowAsians(vector<GradEmploymentData> vectorToRead);
+void highMinorities(vector<GradEmploymentData> vectorToRead); // top5 majors w highest minorities
+void lowMinorities(vector<GradEmploymentData> vectorToRead);
+void highestTotal(vector<GradEmploymentData> vectorToRead); // top 5 majors w/ most total amount of people
+void lowestTotal(vector<GradEmploymentData> vectorToRead);
+void majorSpecific(vector<GradEmploymentData> vectorToRead);
 
 #endif
