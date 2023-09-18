@@ -23,10 +23,10 @@ int main() {
     fileToVector(dataFile, data); 
     dataFile.close();
 
-    // while(true){
-    //     showPrompt();
-    //     getSelection();
-    // }
+    while(true){
+        showPrompt();
+        getSelection(data);
+    }
 
     return 0;
 }

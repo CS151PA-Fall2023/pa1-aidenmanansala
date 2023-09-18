@@ -35,10 +35,10 @@ struct GradEmploymentData
     int educationMasters;      // The estimated number of Masters awarded in this for major
 };
 
+
 void fileToVector(ifstream &fileToRead, vector<GradEmploymentData> &vectorToWrite);
 void showPrompt();
-void dataServer(int selection);
-void getSelection();
+void getSelection(vector<GradEmploymentData> vectorToRead);
 void highMean(vector<GradEmploymentData> vectorToRead);
 void lowMean(vector<GradEmploymentData> vectorToRead);
 void highMedian(vector<GradEmploymentData> vectorToRead);
