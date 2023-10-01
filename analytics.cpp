@@ -9,6 +9,8 @@
  * 
  */
 
+
+
 #include "analytics.h"
 
 /**
@@ -429,40 +431,76 @@ void lowestTotal(vector<GradEmploymentData> vectorToRead){
 void majorSpecific(vector<GradEmploymentData> vectorToRead){
     GradEmploymentData holder;
     string major;
-    int index;
-    bool found = false;
+    int foundAt, index;
 
     cout << "What major would you look to see the info for? (Case Sensitive)" << endl;
     cin.ignore();
     getline(cin, major);
-    
-    // insertion sort using first letter ascii values to figure out < or >
-    char firstLetterOne, firstLetterTwo;
-    bool swapped;
-
-        do{
-            for(int i=1; i<vectorToRead.size(); i++){        
-                swapped = false;
-                firstLetterOne = vectorToRead[i].educationMajor.at(0); // get the first char so we can compare ascii
-                firstLetterTwo = vectorToRead[i-1].educationMajor.at(0);
-            }
-            if (swapped==false){
-                break;
-            }
-        }while(swapped==true);
-    // binary search for user's inputted major
 
     for(int i=0; i<vectorToRead.size(); i++){
-        if(vectorToRead[i].educationMajor==major){
+        if(vectorToRead[i].educationMajor == major){
             index = i;
-            found = true;
+            break;
         }
     }
-    if(found==false){
-        cout << endl << "Major was not found..." << endl;
-        return;
+    
+    /*
+    // insertion sort using first letter ascii values to figure out < or >
+    char charOne, charTwo; // holds the first character of the strings that you are comparing
+	int key;
+	GradEmploymentData majorHolder;
+	for(int i=1; i<vectorToRead.size(); i++){
+		key = i;	
+		for(int x=1; x<=i; x++){
+			charOne = vectorToRead[key].educationMajor.at(0);
+			charTwo = vectorToRead[i-x].educationMajor.at(0);
+			if(charOne < charTwo){
+				majorHolder = vectorToRead[i-x];
+				vectorToRead[i-x] = vectorToRead[key];
+				vectorToRead[key] = majorHolder;
+				key--;
+			}
+		}
+	}
+	
+	
+    for(int i=0; i<vectorToRead.size(); i++){
+        cout << vectorToRead[i].educationMajor << endl;
     }
+	// binary search on the sorted majors
+    int left = 0;
+    int right = vectorToRead.size()-1;
+    int middle;
 
+
+    while((left <= right) && !(foundAt == middle)){
+        middle = left + (right - left)/2;
+
+        if(vectorToRead[middle].educationMajor.at(0) == major.at(0)){
+            if(vectorToRead[middle].educationMajor == major){
+                foundAt = middle;
+                break;
+            } else {
+                for(int i=1; i<5; i++){ // if there are multiple results with the same first letter, iterate through them to find the result
+                    if(vectorToRead[middle].educationMajor.at(i) == major.at(i)){
+                        if(vectorToRead[middle].educationMajor == major){
+                            foundAt = middle;
+                            break;
+                        }
+                    }
+                    middle++;
+                }
+            }
+        } else if(vectorToRead[middle].educationMajor.at(0) > major.at(0)){
+            right = middle-1;
+        } else {
+            left = middle+1;
+        }
+    }
+    */
+
+    
+	
     cout << endl << setw(35) << left << major << right << setw(11) << "Data" << endl;
     cout << "------------------------------------------------" << endl;
     cout << setw(35) << left << "Demographics Total" << right << setw(11) << fixed << setprecision(2) << vectorToRead[index].demographicsTotal << endl;
@@ -476,6 +514,8 @@ void majorSpecific(vector<GradEmploymentData> vectorToRead){
     cout << setw(35) << left << "Bachelors Degree" << right << setw(11) << fixed << setprecision(2) << vectorToRead[index].educationBachelor << endl;
     cout << setw(35) << left << "Doctorate Degree" << right << setw(11) << fixed << setprecision(2) << vectorToRead[index].educationDoctorate << endl;
     cout << setw(35) << left << "Masters Degree" << right << setw(11) << fixed << setprecision(2) << vectorToRead[index].educationMasters << endl;
+	
+
 
     cout << "\nPress enter to continue...";
     cin.ignore();
